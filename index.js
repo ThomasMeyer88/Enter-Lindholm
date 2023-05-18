@@ -59,7 +59,6 @@ class Sprite {
     }
 
     attack() {
-        console.log(`attack`);
         this.isAttacking = true;
         setTimeout(() => {
             this.isAttacking = false;
@@ -99,7 +98,15 @@ const keys = {
     }
 }
 
-let lastKey;
+function rectangularCollision({rectangle1, rectangle2}) {
+    return ( 
+        (rectangle1.attackBox.position.x + rectangle1.attackBox.width >= rectangle2.position.x) &&
+        (rectangle1.attackBox.position.x <= rectangle2.position.x + rectangle2.width) &&
+        (rectangle1.attackBox.position.y + rectangle1.attackBox.height >= rectangle2.position.y) &&
+        (rectangle1.attackBox.position.y <= rectangle2.position.y + rectangle2.height)
+    )      
+}
+
 function animate() {
     window.requestAnimationFrame(animate);
     c.fillStyle = 'black';
@@ -123,20 +130,16 @@ function animate() {
     } else if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
         enemy.velocity.x = -5;
     }
-
-    //detect for collision
-    if ((player.attackBox.position.x + player.attackBox.width >= 
-            enemy.position.x) &&
-        (player.attackBox.position.x 
-            <= enemy.position.y) &&
-        (player.attackBox.position.y + player.attackBox.height >=
-            enemy.position.y) &&
-        (player.attackBox.position.y <= enemy.position.y + enemy.height) &&
-        player.isAttacking === true
-        ) {
-            player.isAttacking = false;
-            console.log('true');
-    } 
+    
+    //detect for collision 
+    if (rectangularCollision({rectangle1: player, rectangle2: enemy}) && player.isAttacking) {
+        player.isAttacking = false;
+        console.log(`Player Attacks`);
+    }
+    if (rectangularCollision({rectangle1: enemy, rectangle2: player}) && enemy.isAttacking) {
+        enemy.isAttacking = false;
+        console.log(`Enemy Attacks`);
+    }
 }
 
 animate();
@@ -173,6 +176,9 @@ window.addEventListener('keydown', (event) => {
                 enemy.velocity.y -= 20;
             }
         break;
+        case 'ArrowDown':
+            enemy.attack();
+            break;
 }   
 });
 
