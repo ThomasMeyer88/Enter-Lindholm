@@ -120,6 +120,24 @@ function rectangularCollision({rectangle1, rectangle2}) {
     )      
 }
 
+//Timer Implementation
+let timer = 10;
+
+function decreaseTimer() {
+    if (timer > 0) {
+        setTimeout(decreaseTimer, 1000);
+        timer--;
+        document.querySelector('#timer').innerText = timer;
+    }
+    if (timer === 0) {
+        document.querySelector('#displayText').style.display = 'flex';
+    }
+    if (player.health === enemy.health) {
+
+    }
+}
+
+decreaseTimer();
 function animate() {
     window.requestAnimationFrame(animate);
     c.fillStyle = 'black';
