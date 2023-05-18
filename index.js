@@ -38,6 +38,7 @@ class Sprite {
 
         //stats
         this.health = 100;
+        this.invul = false;
     }
 
     draw() {
@@ -150,10 +151,22 @@ function animate() {
         document.querySelector('#enemyHealth').style.width = enemy.health + '%';
     }
     if (rectangularCollision({rectangle1: enemy, rectangle2: player}) && enemy.isAttacking) {
+        window.addEventListener('keydown', event => {
+            if (event.key === 'e') {
+                player.invul = true;
+            }
+        });
         enemy.isAttacking = false;
-        player.health -= 20;
-        document.querySelector('#playerHealth').style.width = player.health + '%';
-        console.log(`Enemy Attacks`);
+        setTimeout(() => {
+            if (!player.invul){
+                player.health -= 20;
+                document.querySelector('#playerHealth').style.width = player.health + '%';
+                console.log(`Enemy Attacks`);
+            } else {
+                console.log(`parried`);
+            }
+        }, 250);
+        player.invul = false;
     }
 }
 
@@ -175,10 +188,6 @@ window.addEventListener('keydown', (event) => {
             }
         break;
         case ' ':
-            player.attack();
-        break;
-        case 'e':
-            player.attackBox = player.attackBox2;
             player.attack();
         break;
         //enemy
