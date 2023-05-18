@@ -13,6 +13,13 @@ const background = new Sprite({
     imageSrc: "./img/background.png"
 });
 
+const shop = new Sprite({
+    position: {x: 615, y: 128},
+    imageSrc: "./img/shop.png",
+    scale: 2.75,
+    framesMax: 6
+});
+
 const player = new Fighter({
     position: { x: 0, y: 0 },
     velocity: { x: 0, y: 10 },
@@ -53,7 +60,10 @@ function animate() {
     window.requestAnimationFrame(animate);
     c.fillStyle = 'black';
     c.fillRect(0, 0, canvas.width, canvas.height);
+
     background.update();
+    shop.update();
+    ghost.update();
 
     player.update();
     enemy.update();
@@ -120,7 +130,7 @@ window.addEventListener('keydown', (event) => {
         break;
         case 'w':
             if (player.velocity.y === 0) {
-                player.velocity.y -= 20;
+                player.velocity.y -= 15;
             }
         break;
         case ' ':
@@ -137,7 +147,7 @@ window.addEventListener('keydown', (event) => {
         break;
         case 'ArrowUp':
             if (enemy.velocity.y === 0) {
-                enemy.velocity.y -= 20;
+                enemy.velocity.y -= 15;
             }
         break;
         case 'ArrowDown':
