@@ -2,23 +2,25 @@
     <link href="src.css" rel="stylesheet" />
 </head>
 <body>
-    <div class="container">
-        <div class="subContainer">
-            <div class="healthBarContainer">
-                <div class="healthBarBackground">
-                </div>
-                <div id="playerHealth" class="healthBar">
-                </div>
-            </div>     
-            <div class="timer">
-            </div>
-            <div class="healthBarContainer">
-                <div class="healthBarBackground">
-                </div>
-                <div id="enemyHealth" class="healthBar">
-                </div>
-            </div>           
-        </div>
+  <!-- red container div -->
+  <div class="container">
+    <div class="subContainer">
+      <!-- player health -->
+      <div class="playerHealthBar">
+        <div class="healthBarBackground"></div>
+        <div id="playerHealth" class="healthBar"></div>
+      </div>
+
+      <!-- timer -->
+      <div id="timer" class="timer">10</div>
+
+      <!-- enemy health -->
+      <div class="enemyHealthBar">
+        <div class="healthBarBackground"></div>
+        <div id="enemyHealth" class="healthBar"></div>
+      </div>
+
+    </div>
         <canvas></canvas>
     </div>
     <script src="index.js"></script>
