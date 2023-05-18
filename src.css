@@ -1,5 +1,17 @@
+.container {
+    position: relative;
+}
+.subContainer {
+    position: absolute;
+    display: flex;
+}
 .healthBar {
     background-color: yellow;
     height: 30px;
     width: 100px
+}
+.timer {
+    background-color: red;
+    height: 100px;
+    width: 100px;
 }
