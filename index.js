@@ -9,17 +9,32 @@ canvas.height = 576
 c.fillRect(0,0, canvas.width, canvas.height);
 
 class Sprite {
-    constructor({position, velocity}) {
+    constructor({position, velocity, color}) {
         this.position = position;
         this.velocity = velocity;
         this.height = 150;
+        this.width = 50;
         this.lastKey;
+        this.attackBox = {
+            position: this.position,
+            width: 100,
+            height: 50,
+        }
+        this.color = color;
     }
 
     draw() {
-        c.fillStyle = 'red';
-        c.fillRect(this.position.x, this.position.y, 50, this.height);
-        console.log('draw');
+        c.fillStyle = this.color;
+        c.fillRect(this.position.x, this.position.y, this.width, this.height);
+        
+        // attack box
+        c.fillStyle = 'green';
+        c.fillRect(
+            this.attackBox.position.x, 
+            this.attackBox.position.y, 
+            this.attackBox.width,
+            this.attackBox.height
+        )
     }
 
     update() {
@@ -29,7 +44,6 @@ class Sprite {
         this.position.y += this.velocity.y;
 
         if (this.position.y + this.height + this.velocity.y >= canvas.height) {
-            console.log(`check`);
             this.velocity.y = 0;
         } else {
             this.velocity.y += gravity;
@@ -39,12 +53,14 @@ class Sprite {
 
 const player = new Sprite({
     position: { x: 0, y: 0 },
-    velocity: { x: 0, y: 10 }
+    velocity: { x: 0, y: 10 },
+    color: 'red'
 });
 
 const enemy = new Sprite({
     position: { x: 400, y: 100 },
-    velocity: { x: 0, y: 0 }
+    velocity: { x: 0, y: 0 },
+    color: 'blue'
 });
 
 player.draw();
@@ -89,6 +105,18 @@ function animate() {
     } else if (keys.ArrowLeft.pressed && enemy.lastKey === 'ArrowLeft') {
         enemy.velocity.x = -5;
     }
+
+    //detect for collision
+    if ((player.attackBox.position.x + player.attackBox.width >= 
+            enemy.position.x) &&
+        (player.attackBox.position.x 
+            <= enemy.position.y) &&
+        (player.attackBox.position.y + player.attackBox.height >=
+            enemy.position.y) &&
+        (player.attackBox.position.y <= enemy.position.y + enemy.height)
+        ) {
+            console.log('true');
+    } 
 }
 
 animate();
