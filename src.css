@@ -1,17 +1,26 @@
+*{
+  box-sizing: border-box;  
+}
 .container {
     position: relative;
+    display: inline-block;
+    /* width: 1024px; */
 }
 .subContainer {
     position: absolute;
     display: flex;
+    width: 100%;
+    align-items: center;
+    padding: 20px;
 }
 .healthBar {
     background-color: yellow;
     height: 30px;
-    width: 100px
+    width: 100%
 }
 .timer {
     background-color: red;
     height: 100px;
     width: 100px;
+    flex-shrink: 0;
 }

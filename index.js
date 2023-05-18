@@ -24,6 +24,15 @@ class Sprite {
             width: 100,
             height: 50,
         }
+        this.attackBox2 = {
+            position: {
+                x: this.position.x,
+                y: this.position.y
+            },
+            offset,
+            width: 150,
+            height: 50,
+        }
         this.color = color;
         this.isAttacking;
     }
@@ -33,7 +42,7 @@ class Sprite {
         c.fillRect(this.position.x, this.position.y, this.width, this.height);
         
         // attack box
-        // if(this.isAttacking) {
+        if(this.isAttacking) {
             c.fillStyle = 'green';
             c.fillRect(
                 this.attackBox.position.x, 
@@ -41,7 +50,7 @@ class Sprite {
                 this.attackBox.width,
                 this.attackBox.height
             )
-        // }
+        }
     }
 
     update() {
@@ -134,7 +143,7 @@ function animate() {
     //detect for collision 
     if (rectangularCollision({rectangle1: player, rectangle2: enemy}) && player.isAttacking) {
         player.isAttacking = false;
-        console.log(`Player Attacks`);
+        document.querySelector('#enemyHealth').style.width = '20%';
     }
     if (rectangularCollision({rectangle1: enemy, rectangle2: player}) && enemy.isAttacking) {
         enemy.isAttacking = false;
@@ -161,7 +170,11 @@ window.addEventListener('keydown', (event) => {
         break;
         case ' ':
             player.attack();
-            break;
+        break;
+        case 'e':
+            player.attackBox = player.attackBox2;
+            player.attack();
+        break;
         //enemy
         case 'ArrowRight':
             keys.ArrowRight.pressed = true;
