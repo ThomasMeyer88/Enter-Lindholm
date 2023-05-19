@@ -1,5 +1,6 @@
 class Sprite {
-    constructor({position, imageSrc, scale = 1, framesMax = 1}) {
+    constructor({position, imageSrc, scale = 1, framesMax = 1, framesCurrent = 0, framesElapsed = 0, 
+                framesHold = 5}) {
         this.position = position;
         this.height = 150;
         this.width = 50;
@@ -7,9 +8,9 @@ class Sprite {
         this.image.src = imageSrc;
         this.scale = scale;
         this.framesMax = framesMax;
-        this.framesCurrent = 0;
-        this.framesElapsed = 0;
-        this.framesHold = 5;
+        this.framesCurrent = framesCurrent;
+        this.framesElapsed = framesElapsed;
+        this.framesHold = framesHold;
     }
 
     draw() {
@@ -39,8 +40,10 @@ class Sprite {
     }
 }
 
-class Fighter {
-    constructor({position, velocity, color, offset}) {
+class Fighter extends Sprite{
+    constructor({position, velocity, color, offset, imageSrc, scale = 1, framesMax = 1, framesCurrent = 0,
+                framesElapsed = 0, framesHold = 5}) {
+        super(imageSrc, scale, framesMax, framesCurrent, framesElapsed, framesHold);
         this.position = position;
         this.velocity = velocity;
         this.height = 150;
