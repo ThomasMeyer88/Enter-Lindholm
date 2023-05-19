@@ -1,6 +1,6 @@
 class Sprite {
     constructor({position, imageSrc, scale = 1, framesMax = 1, framesCurrent = 0, framesElapsed = 0, 
-                framesHold = 5}) {
+                framesHold = 5, offset = {x: 0, y: 0}}) {
         this.position = position;
         this.height = 150;
         this.width = 50;
@@ -11,6 +11,7 @@ class Sprite {
         this.framesCurrent = framesCurrent;
         this.framesElapsed = framesElapsed;
         this.framesHold = framesHold;
+        this.offset = offset;
     }
 
     draw() {
@@ -20,8 +21,8 @@ class Sprite {
             0,
             this.image.width / this.framesMax,
             this.image.height,
-            this.position.x, 
-            this.position.y, 
+            this.position.x - this.offset.x, 
+            this.position.y - this.offset.y, 
             (this.image.width / this.framesMax) * this.scale, 
             this.image.height * this.scale);
     }
@@ -41,9 +42,9 @@ class Sprite {
 }
 
 class Fighter extends Sprite{
-    constructor({position, velocity, color, offset, imageSrc, scale = 1, framesMax = 1, framesCurrent = 0,
-                framesElapsed = 0, framesHold = 5}) {
-        super({position, imageSrc, scale, framesMax, framesCurrent, framesElapsed, framesHold});
+    constructor({position, velocity, color, imageSrc, scale = 1, framesMax = 1, framesCurrent = 0,
+                framesElapsed = 0, framesHold = 5, offset}) {
+        super({position, imageSrc, scale, framesMax, framesCurrent, framesElapsed, framesHold, offset});
         this.velocity = velocity;
         this.lastKey;
         this.attackBox = {
@@ -53,15 +54,6 @@ class Fighter extends Sprite{
             },
             offset,
             width: 100,
-            height: 50,
-        }
-        this.attackBox2 = {
-            position: {
-                x: this.position.x,
-                y: this.position.y
-            },
-            offset,
-            width: 150,
             height: 50,
         }
         this.color = color;
