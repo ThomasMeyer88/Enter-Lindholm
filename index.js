@@ -23,15 +23,20 @@ const shop = new Sprite({
 const player = new Fighter({
     position: { x: 0, y: 0 },
     velocity: { x: 0, y: 10 },
-    color: 'red',
-    offset: {x: 0, y: 0}
+    offset: {x: 0, y: 0},
+    imageSrc: "./img/samuraiMack/idle.png",
+    framesMax: 8,
+    framesHold: 10,
+    scale: 2.5
 });
 
 const enemy = new Fighter({
     position: { x: 400, y: 100 },
     velocity: { x: 0, y: 0 },
-    color: 'blue',
-    offset: {x: -50, y: 0}
+    offset: {x: -50, y: 0},
+    imageSrc: "./img/samuraiMack/idle.png",
+    framesMax: 8,
+    scale: 2.5
 });
 
 player.draw();
@@ -63,7 +68,6 @@ function animate() {
 
     background.update();
     shop.update();
-    ghost.update();
 
     player.update();
     enemy.update();
